@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ExampleMiddleware
+class AuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,6 +16,24 @@ class ExampleMiddleware
     public function handle($request, Closure $next)
     {
 
-        return $next($request);
+
+
+
+
+
+
+        session_start();
+        try {
+            if($_SESSION["id"] && $_SESSION["name"]){
+                return $next($request);
+            }
+        } catch (\Throwable $th) {
+         return redirect('Admin\Login');
+        }
+
+
+
+
     }
+
 }

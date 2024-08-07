@@ -1,11 +1,14 @@
 <?php
-
+// initializing pakages
 require_once __DIR__.'/../vendor/autoload.php';
 
+
+// init .env aka db setup
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
 
+// init date
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
 /*
@@ -23,7 +26,8 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+// shortcuts cfor libs
+$app->withFacades();
 
 // $app->withEloquent();
 
@@ -72,13 +76,13 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\ExampleMiddleware::class
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\AuthMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------

@@ -11,12 +11,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+
 </head>
 
 <body>
@@ -29,26 +24,50 @@
                     </div>
                     <div class="card-body">
                         <form id="login_form">
+
                             <div class="form-floating mb-3">
-                                <input class="form-control" name="user_email" type="email" />
+                                <input class="form-control" name="email" type="email" />
                                 <label>Email address</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" name="user_password" type="password" />
+                                <input class="form-control" name="password" type="password" />
                                 <label>Password</label>
                             </div>
 
-                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-
-                                <a class="btn btn-primary">Login</a>
+                            <div class="form-floating mb-3">
+                                <div class="form-floating mb-3">
+                                    <div id="error" style="height: 3rem;" role="alert"></div>
+                                </div>
                             </div>
-                        </form>
+
+                            <a class="btn btn-primary" onclick="Login()">Login</a>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script>
+        function Login() {
+            $.get("{{ route('LoginUser') }}", $("#login_form").serialize(),
+                function(data) {
+
+                    // console.log(data);
+
+                    if (data.success) {
+                        window.location.href = "Dashboard";
+                    } else {
+                        swal("Error!", data.message, "error");
+                    }
+                }
+            );
+        }
+    </script>
 
 
 </body>
